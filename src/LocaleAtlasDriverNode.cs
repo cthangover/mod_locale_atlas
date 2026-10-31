@@ -82,13 +82,13 @@ namespace Cthangover.LocaleAtlas
             foreach (var id in registry.GetOrderedModIds())
             {
                 if (registry.Mods.TryGetValue(id, out var info) && info?.FileProvider != null && seen.Add(id))
-                    result.Add((id, info.FileProvider));
+                    result.Add((id, NestedFolders.Visible(info)));
             }
 
             foreach (var info in registry.AllDiscoveredMods.Values.OrderBy(m => m.Id, StringComparer.Ordinal))
             {
                 if (info?.FileProvider != null && seen.Add(info.Id))
-                    result.Add((info.Id, info.FileProvider));
+                    result.Add((info.Id, NestedFolders.Visible(info)));
             }
 
             foreach (var collection in ModCollectionStore.LoadAll())
